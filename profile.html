@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CineVerse - User Profile">
+    <meta name="theme-color" content="#0f0f0f">
+    <title>Profile - CineVerse</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .profile-container {
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+            margin-top: 80px;
+        }
+
+        .profile-header {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: var(--spacing-2xl);
+            margin-bottom: var(--spacing-2xl);
+            align-items: start;
+            background: rgba(255, 255, 255, 0.05);
+            padding: var(--spacing-2xl);
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: var(--radius-xl);
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
+        }
+
+        .profile-info h1 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .profile-info p {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .profile-actions button {
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-primary);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-weight: 500;
+        }
+
+        .profile-actions button:hover {
+            background: var(--gradient-primary);
+            border-color: transparent;
+        }
+
+        .section-tabs {
+            display: flex;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab-button {
+            padding: var(--spacing-lg) var(--spacing-lg);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all var(--transition-base);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .tab-button.active {
+            color: var(--text-primary);
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-2xl);
+            color: var(--text-secondary);
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            opacity: 0.5;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .empty-state p {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .preferences-form {
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: var(--spacing-2xl);
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all var(--transition-base);
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--purple);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            color: var(--text-secondary);
+        }
+
+        .form-checkbox input {
+            accent-color: var(--purple);
+        }
+
+        .button-group {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .button-group button {
+            flex: 1;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .button-group .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .button-group .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                margin-top: 70px;
+                padding: var(--spacing-md);
+            }
+
+            .profile-header {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-avatar {
+                margin: 0 auto;
+            }
+
+            .profile-actions {
+                flex-direction: column;
+            }
+
+            .content-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .section-tabs {
+                gap: var(--spacing-md);
+            }
+
+            .tab-button {
+                padding: var(--spacing-md);
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===========================
+         NAVIGATION BAR
+         =========================== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-icon">🎬</span>
+                    <span class="logo-text">CineVerse</span>
+                </a>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="search.html" class="nav-link">Search</a></li>
+                <li class="nav-item"><a href="profile.html" class="nav-link active">My List</a></li>
+            </ul>
+
+            <div class="navbar-auth">
+                <button id="logoutBtn" class="btn-text" style="display: none;">Logout</button>
+                <a href="login.html" id="loginLink" class="btn-primary">Login</a>
+            </div>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===========================
+         MAIN CONTENT
+         =========================== -->
+    <main>
+        <div class="profile-container">
+            <!-- Profile Header -->
+            <div class="profile-header" id="profileHeader" style="display: none;">
+                <div class="profile-avatar" id="profileAvatar">👤</div>
+
+                <div class="profile-info">
+                    <h1 id="profileName">User Profile</h1>
+                    <p id="profileEmail"></p>
+
+                    <div class="profile-stats">
+                        <div class="stat-card">
+                            <div class="stat-number" id="favoriteCount">0</div>
+                            <div class="stat-label">Favorites</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="watchHistoryCount">0</div>
+                            <div class="stat-label">Watched</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="continueWatchingCount">0</div>
+                            <div class="stat-label">Continue</div>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions">
+                        <button id="editProfileBtn">Edit Profile</button>
+                        <button id="settingsBtn">Settings</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Prompt -->
+            <div id="loginPrompt" class="empty-state">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <h2>Please log in</h2>
+                <p>Sign in to view your profile and saved content</p>
+                <a href="login.html" class="btn-primary">Go to Login</a>
+            </div>
+
+            <!-- Tabs -->
+            <div class="section-tabs" id="sectionTabs" style="display: none;">
+                <button class="tab-button active" data-tab="favorites">Favorites</button>
+                <button class="tab-button" data-tab="history">Watch History</button>
+                <button class="tab-button" data-tab="continue">Continue Watching</button>
+                <button class="tab-button" data-tab="preferences">Preferences</button>
+            </div>
+
+            <!-- Favorites Tab -->
+            <div class="tab-content active" id="favoritesTab">
+                <div class="content-grid" id="favoritesList">
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon
+                                points="12 2 15.09 10.26 23.77 10.35 17.16 15.54 19.85 23.95 12 18.77 4.15 23.95 6.84 15.54 0.23 10.35 8.91 10.26">
+                            </polygon>
+                        </svg>
+                        <p>No favorite movies yet</p>
+                        <a href="search.html" class="btn-primary">Browse Movies</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Watch History Tab -->
+            <div class="tab-content" id="historyTab">
+                <div class="content-grid" id="historyList">
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <p>No watch history yet</p>
+                        <a href="index.html" class="btn-primary">Start Watching</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continue Watching Tab -->
+            <div class="tab-content" id="continueTab">
+                <div class="content-grid" id="continueList">
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21"></polygon>
+                        </svg>
+                        <p>Start watching to continue later</p>
+                        <a href="index.html" class="btn-primary">Explore Content</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preferences Tab -->
+            <div class="tab-content" id="preferencesTab">
+                <div class="preferences-form">
+                    <h2 style="margin-bottom: var(--spacing-lg);">Preferences</h2>
+
+                    <div class="form-group">
+                        <label for="themeSelect" class="form-label">Theme</label>
+                        <select id="themeSelect" class="form-select">
+                            <option value="dark">Dark (Default)</option>
+                            <option value="light">Light</option>
+                            <option value="auto">Auto</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qualitySelect" class="form-label">Video Quality</label>
+                        <select id="qualitySelect" class="form-select">
+                            <option value="auto">Auto (Recommended)</option>
+                            <option value="1080p">1080p (Full HD)</option>
+                            <option value="720p">720p (HD)</option>
+                            <option value="480p">480p (SD)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-checkbox">
+                            <input type="checkbox" id="autoplayToggle" checked>
+                            <span>Auto-play next episode</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-checkbox">
+                            <input type="checkbox" id="notificationsToggle" checked>
+                            <span>Email notifications for new releases</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-checkbox">
+                            <input type="checkbox" id="dataToggle" checked>
+                            <span>Allow data collection for recommendations</span>
+                        </label>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn-primary" id="savePreferencesBtn">Save Preferences</button>
+                        <button class="btn-secondary" type="reset">Cancel</button>
+                    </div>
+
+                    <hr
+                        style="border: none; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: var(--spacing-2xl) 0;">
+
+                    <div style="margin-top: var(--spacing-2xl);">
+                        <h3 style="margin-bottom: var(--spacing-lg);">Account</h3>
+                        <div class="button-group">
+                            <button class="btn-secondary" id="changePasswordBtn">Change Password</button>
+                            <button class="btn-secondary" style="background: rgba(245, 87, 108, 0.1); color: #ff6b7a;"
+                                id="deleteAccountBtn">Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===========================
+         FOOTER
+         =========================== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">CineVerse</h3>
+                <p class="footer-description">Your premium streaming experience with curated content.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="profile.html">My List</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 CineVerse. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/sample-movies.js"></script>
+    <script>
+        /**
+         * Profile Page
+         */
+        const ProfilePage = {
+            currentUser: null,
+
+            init() {
+                this.checkAuth();
+                this.setupEventListeners();
+                this.setupMobileMenu();
+                this.loadProfile();
+            },
+
+            checkAuth() {
+                this.currentUser = Auth.getCurrentUser();
+
+                if (!this.currentUser) {
+                    document.getElementById('profileHeader').style.display = 'none';
+                    document.getElementById('sectionTabs').style.display = 'none';
+                    document.getElementById('loginPrompt').style.display = 'block';
+                    document.getElementById('loginLink').style.display = 'inline-block';
+                    document.getElementById('logoutBtn').style.display = 'none';
+                } else {
+                    document.getElementById('loginPrompt').style.display = 'none';
+                    document.getElementById('loginLink').style.display = 'none';
+                    document.getElementById('logoutBtn').style.display = 'inline-block';
+                }
+            },
+
+            loadProfile() {
+                if (!this.currentUser) return;
+
+                const { username, email, avatar } = this.currentUser;
+
+                // Update profile info
+                document.getElementById('profileName').textContent = username || 'User';
+                document.getElementById('profileEmail').textContent = email;
+                document.getElementById('profileAvatar').textContent = avatar || this.getInitials(username);
+
+                // Update stats
+                const favorites = Storage.getFavorites();
+                const history = Storage.getWatchHistory();
+                const continueWatching = Storage.getContinueWatching?.() || [];
+
+                document.getElementById('favoriteCount').textContent = favorites.length;
+                document.getElementById('watchHistoryCount').textContent = history.length;
+                document.getElementById('continueWatchingCount').textContent = continueWatching.length;
+
+                // Render lists
+                this.renderFavorites(favorites);
+                this.renderHistory(history);
+                this.renderContinueWatching(continueWatching);
+
+                // Load preferences
+                this.loadPreferences();
+
+                document.getElementById('profileHeader').style.display = 'grid';
+                document.getElementById('sectionTabs').style.display = 'flex';
+            },
+
+            renderFavorites(favorites) {
+                const container = document.getElementById('favoritesList');
+                if (favorites.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 15.09 10.26 23.77 10.35 17.16 15.54 19.85 23.95 12 18.77 4.15 23.95 6.84 15.54 0.23 10.35 8.91 10.26"></polygon>
+                            </svg>
+                            <p>No favorite movies yet</p>
+                            <a href="search.html" class="btn-primary">Browse Movies</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = favorites.map((movie, i) => `
+                    <div class="movie-card" style="animation: slideUp 0.6s ease-out ${i * 0.05}s forwards; opacity: 0;">
+                        <div class="card-poster">
+                            <img src="${movie.poster}" alt="${movie.title}" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="card-info">
+                                    <h3 class="card-title">${movie.title}</h3>
+                                </div>
+                            </div>
+                            <button class="card-play-btn">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Add click handlers
+                container.querySelectorAll('.movie-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const movieId = favorites[Array.from(container.querySelectorAll('.movie-card')).indexOf(card)].id;
+                        sessionStorage.setItem('selectedMovieId', movieId);
+                        window.location.href = `movie.html?id=${movieId}`;
+                    });
+                });
+            },
+
+            renderHistory(history) {
+                const container = document.getElementById('historyList');
+                if (history.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <p>No watch history yet</p>
+                            <a href="index.html" class="btn-primary">Start Watching</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = history.reverse().slice(0, 12).map((movie, i) => `
+                    <div class="movie-card" style="animation: slideUp 0.6s ease-out ${i * 0.05}s forwards; opacity: 0;">
+                        <div class="card-poster">
+                            <img src="${movie.poster}" alt="${movie.title}" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="card-info">
+                                    <h3 class="card-title">${movie.title}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            renderContinueWatching(continueWatching) {
+                const container = document.getElementById('continueList');
+                if (continueWatching.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5 3 19 12 5 21"></polygon>
+                            </svg>
+                            <p>Start watching to continue later</p>
+                            <a href="index.html" class="btn-primary">Explore Content</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = continueWatching.map((movie, i) => {
+                    const progress = movie.progress || 0;
+                    return `
+                        <div class="movie-card" style="animation: slideUp 0.6s ease-out ${i * 0.05}s forwards; opacity: 0;">
+                            <div class="card-poster">
+                                <img src="${movie.poster}" alt="${movie.title}" loading="lazy">
+                                <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: rgba(0,0,0,0.3);">
+                                    <div style="height: 100%; width: ${progress}%; background: var(--gradient-primary);"></div>
+                                </div>
+                                <div class="card-overlay">
+                                    <div class="card-info">
+                                        <h3 class="card-title">${movie.title}</h3>
+                                    </div>
+                                </div>
+                                <button class="card-play-btn">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21"></polygon>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            loadPreferences() {
+                const prefs = Storage.getPreferences();
+                document.getElementById('themeSelect').value = prefs?.theme || 'dark';
+                document.getElementById('qualitySelect').value = prefs?.quality || 'auto';
+                document.getElementById('autoplayToggle').checked = prefs?.autoplay !== false;
+                document.getElementById('notificationsToggle').checked = prefs?.notifications !== false;
+                document.getElementById('dataToggle').checked = prefs?.dataCollection !== false;
+            },
+
+            setupEventListeners() {
+                // Tab switching
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+
+                        btn.classList.add('active');
+                        const tabId = btn.dataset.tab + 'Tab';
+                        document.getElementById(tabId)?.classList.add('active');
+                    });
+                });
+
+                // Logout
+                document.getElementById('logoutBtn')?.addEventListener('click', () => {
+                    if (confirm('Are you sure you want to log out?')) {
+                        Auth.logout();
+                        window.location.href = 'login.html';
+                    }
+                });
+
+                // Edit profile
+                document.getElementById('editProfileBtn')?.addEventListener('click', () => {
+                    alert('Edit profile feature coming soon!');
+                });
+
+                // Settings
+                document.getElementById('settingsBtn')?.addEventListener('click', () => {
+                    document.querySelector('[data-tab="preferences"]').click();
+                });
+
+                // Save preferences
+                document.getElementById('savePreferencesBtn')?.addEventListener('click', () => {
+                    const prefs = {
+                        theme: document.getElementById('themeSelect').value,
+                        quality: document.getElementById('qualitySelect').value,
+                        autoplay: document.getElementById('autoplayToggle').checked,
+                        notifications: document.getElementById('notificationsToggle').checked,
+                        dataCollection: document.getElementById('dataToggle').checked
+                    };
+
+                    Storage.savePreferences(prefs);
+                    alert('Preferences saved!');
+                });
+
+                // Change password
+                document.getElementById('changePasswordBtn')?.addEventListener('click', () => {
+                    const newPassword = prompt('Enter new password (minimum 6 characters):');
+                    if (newPassword && newPassword.length >= 6) {
+                        Auth.changePassword(newPassword);
+                        alert('Password changed successfully!');
+                    } else if (newPassword) {
+                        alert('Password must be at least 6 characters');
+                    }
+                });
+
+                // Delete account
+                document.getElementById('deleteAccountBtn')?.addEventListener('click', () => {
+                    if (confirm('Are you sure? This cannot be undone.')) {
+                        if (confirm('Type "DELETE" to confirm account deletion.')) {
+                            const confirmation = prompt('Type "DELETE" to confirm:');
+                            if (confirmation === 'DELETE') {
+                                Storage.removeItem('user');
+                                window.location.href = 'login.html';
+                            }
+                        }
+                    }
+                });
+            },
+
+            getInitials(username) {
+                if (!username) return '👤';
+                return username.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            },
+
+            setupMobileMenu() {
+                const mobileToggle = document.getElementById('mobileToggle');
+                const navMenu = document.getElementById('navMenu');
+
+                if (mobileToggle && navMenu) {
+                    mobileToggle.addEventListener('click', () => {
+                        mobileToggle.classList.toggle('active');
+                        navMenu.classList.toggle('active');
+                    });
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => ProfilePage.init());
+    </script>
+</body>
+
+</html>

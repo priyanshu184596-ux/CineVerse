@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CineVerse - Movie Details">
+    <meta name="theme-color" content="#0f0f0f">
+    <title>Movie Details - CineVerse</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <!-- ===========================
+         NAVIGATION BAR
+         =========================== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-icon">🎬</span>
+                    <span class="logo-text">CineVerse</span>
+                </a>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="search.html" class="nav-link">Search</a></li>
+                <li class="nav-item"><a href="profile.html" class="nav-link">My List</a></li>
+            </ul>
+
+            <div class="navbar-search">
+                <input type="text" class="search-input" id="navSearchInput" placeholder="Search movies..."
+                    aria-label="Search movies">
+                <button class="search-btn" id="navSearchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="navbar-auth">
+                <a href="login.html" class="btn-text">Login</a>
+                <a href="profile.html" class="btn-primary">Profile</a>
+            </div>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===========================
+         MAIN CONTENT
+         =========================== -->
+    <main style="margin-top: 80px;">
+        <!-- Movie Details Section -->
+        <section class="section-container" id="movieDetailsSection">
+            <div id="movieDetailsContent">
+                <div class="flex-center" style="height: 400px;">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommendations Section -->
+        <section class="section-container" id="recommendationsSection" style="display: none;">
+            <div class="section-header">
+                <h2 class="section-title">Similar Movies</h2>
+                <a href="search.html" class="view-all-link">View All</a>
+            </div>
+            <div class="slider" id="recommendationsSlider">
+                <div class="slider-track" id="recommendationsTrack">
+                    <!-- Recommendations will be inserted here -->
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button class="slider-btn prev" id="recommendationsPrev" aria-label="Previous">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <button class="slider-btn next" id="recommendationsNext" aria-label="Next">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- Reviews Section (Placeholder) -->
+        <section class="section-container" style="display: none;">
+            <h2 class="section-title">Reviews</h2>
+            <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                Reviews coming soon
+            </div>
+        </section>
+    </main>
+
+    <!-- ===========================
+         FOOTER
+         =========================== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">CineVerse</h3>
+                <p class="footer-description">Your premium streaming experience with curated content.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Platform</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="profile.html">My List</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 CineVerse. All rights reserved. | Data provided by TMDB</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/favorites.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/sample-movies.js"></script>
+    <script>
+        /**
+         * Movie Details Page
+         */
+        const MovieDetailsPage = {
+            movieId: null,
+            movieData: null,
+
+            async init() {
+                // Get movie ID from URL or storage
+                const params = new URLSearchParams(window.location.search);
+                this.movieId = params.get('id') || sessionStorage.getItem('selectedMovieId');
+
+                if (!this.movieId) {
+                    this.showError('No movie selected');
+                    return;
+                }
+
+                await this.loadMovie();
+                this.setupScrollEffects();
+                this.setupNavbar();
+            },
+
+            async loadMovie() {
+                try {
+                    const loading = document.getElementById('loadingSpinner');
+                    loading.classList.add('active');
+
+                    const data = await API.getMovieDetails(this.movieId);
+
+                    if (!data || !data.id) {
+                        this.showError('Movie not found');
+                        loading.classList.remove('active');
+                        return;
+                    }
+
+                    this.movieData = API.formatMovie(data);
+                    this.renderMovieDetails();
+                    await this.loadRecommendations();
+
+                    loading.classList.remove('active');
+                } catch (error) {
+                    console.error('Error loading movie:', error);
+                    this.showError('Failed to load movie details');
+                }
+            },
+
+            renderMovieDetails() {
+                const container = document.getElementById('movieDetailsContent');
+                const isFavorited = Storage.isFavorited(this.movieData.id);
+
+                const trailer = this.movieData.videos?.find(
+                    v => v.type === 'Trailer' && v.site === 'YouTube'
+                );
+
+                let genresHTML = '';
+                if (Array.isArray(this.movieData.genres)) {
+                    genresHTML = this.movieData.genres
+                        .map(g => `<span class="modal-genre">${g.name || g}</span>`)
+                        .join('');
+                }
+
+                let castHTML = '';
+                if (Array.isArray(this.movieData.cast) && this.movieData.cast.length > 0) {
+                    castHTML = this.movieData.cast
+                        .map(actor => `
+                            <div class="cast-item">
+                                <img 
+                                    src="${actor.profile_path ? API.getImageUrl(actor.profile_path, 'w185') : 'assets/images/no-image.jpg'}" 
+                                    alt="${actor.name}" 
+                                    class="cast-avatar"
+                                >
+                                <div class="cast-name">${actor.name}</div>
+                                <div class="cast-role">${actor.character || 'Actor'}</div>
+                            </div>
+                        `)
+                        .join('');
+                }
+
+                container.innerHTML = `
+                    <div class="modal-backdrop">
+                        <img src="${this.movieData.backdrop}" alt="${this.movieData.title}">
+                        <div class="modal-backdrop-overlay"></div>
+                    </div>
+
+                    <div class="modal-body" style="margin-top: -60px;">
+                        <div class="modal-poster">
+                            <img src="${this.movieData.poster}" alt="${this.movieData.title}">
+                        </div>
+
+                        <div class="modal-info">
+                            <h1 class="modal-title">${this.movieData.title}</h1>
+
+                            <div class="modal-meta">
+                                <div class="modal-rating">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 10.26 23.77 10.35 17.16 15.54 19.85 23.95 12 18.77 4.15 23.95 6.84 15.54 0.23 10.35 8.91 10.26"/>
+                                    </svg>
+                                    <span>${this.movieData.rating}/10</span>
+                                </div>
+                                ${this.movieData.runtime ? `<div class="modal-runtime"><span>⏱</span> ${this.movieData.runtime} min</div>` : ''}
+                                <div class="modal-release"><span>📅</span> ${this.movieData.releaseDate?.split('-')[0] || 'N/A'}</div>
+                            </div>
+
+                            ${genresHTML ? `<div class="modal-genres">${genresHTML}</div>` : ''}
+
+                            <p class="modal-description">${this.movieData.description || 'No description available.'}</p>
+
+                            ${castHTML ? `
+                                <div class="modal-cast">
+                                    <h3 class="modal-cast-title">Cast</h3>
+                                    <div class="cast-list">
+                                        ${castHTML}
+                                    </div>
+                                </div>
+                            ` : ''}
+
+                            <div class="modal-buttons">
+                                <button class="modal-btn-play" aria-label="Play movie">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21"></polygon>
+                                    </svg>
+                                    <span>Play</span>
+                                </button>
+                                ${trailer ? `
+                                    <button class="modal-btn-trailer" data-trailer-id="${trailer.key}" aria-label="Watch trailer">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="5 3 19 12 5 21"></polygon>
+                                        </svg>
+                                        <span>Watch Trailer</span>
+                                    </button>
+                                ` : ''}
+                                <button class="modal-btn-favorite ${isFavorited ? 'active' : ''}" aria-label="Add to favorites">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="${isFavorited ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+                                        <polygon points="12 2 15.09 10.26 23.77 10.35 17.16 15.54 19.85 23.95 12 18.77 4.15 23.95 6.84 15.54 0.23 10.35 8.91 10.26"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Attach event listeners
+                this.attachEventListeners();
+            },
+
+            attachEventListeners() {
+                const playBtn = document.querySelector('.modal-btn-play');
+                const trailerBtn = document.querySelector('.modal-btn-trailer');
+                const favoriteBtn = document.querySelector('.modal-btn-favorite');
+
+                if (playBtn) {
+                    playBtn.addEventListener('click', () => {
+                        alert(`Playing: ${this.movieData.title}\n\nPlayer would load here in production.`);
+                        Storage.addContinueWatching(this.movieData, 0);
+                    });
+                }
+
+                if (trailerBtn) {
+                    trailerBtn.addEventListener('click', () => {
+                        const trailerId = trailerBtn.dataset.trailerId;
+                        if (trailerId) {
+                            window.open(`https://www.youtube.com/watch?v=${trailerId}`, '_blank');
+                        }
+                    });
+                }
+
+                if (favoriteBtn) {
+                    favoriteBtn.addEventListener('click', () => {
+                        const isFavorited = Storage.isFavorited(this.movieData.id);
+
+                        if (isFavorited) {
+                            Storage.removeFavorite(this.movieData.id);
+                            favoriteBtn.classList.remove('active');
+                        } else {
+                            Storage.addFavorite(this.movieData);
+                            favoriteBtn.classList.add('active');
+                        }
+                    });
+                }
+            },
+
+            async loadRecommendations() {
+                try {
+                    if (!this.movieData.recommendations || this.movieData.recommendations.length === 0) {
+                        return;
+                    }
+
+                    const section = document.getElementById('recommendationsSection');
+                    section.style.display = 'block';
+
+                    Slider.renderCards('recommendationsTrack', this.movieData.recommendations, (movie) => {
+                        // Navigate to movie details
+                        sessionStorage.setItem('selectedMovieId', movie.id);
+                        window.location.href = `movie.html?id=${movie.id}`;
+                    });
+                } catch (error) {
+                    console.error('Error loading recommendations:', error);
+                }
+            },
+
+            setupScrollEffects() {
+                window.addEventListener('scroll', () => {
+                    const navbar = document.getElementById('navbar');
+                    const backToTop = document.getElementById('backToTop');
+
+                    if (window.scrollY > 100) {
+                        navbar?.classList.add('scrolled');
+                        backToTop?.classList.add('active');
+                    } else {
+                        navbar?.classList.remove('scrolled');
+                        backToTop?.classList.remove('active');
+                    }
+                });
+
+                const backToTop = document.getElementById('backToTop');
+                if (backToTop) {
+                    backToTop.addEventListener('click', () => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                }
+            },
+
+            setupNavbar() {
+                const mobileToggle = document.getElementById('mobileToggle');
+                const navMenu = document.getElementById('navMenu');
+
+                if (mobileToggle && navMenu) {
+                    mobileToggle.addEventListener('click', () => {
+                        mobileToggle.classList.toggle('active');
+                        navMenu.classList.toggle('active');
+                    });
+                }
+            },
+
+            showError(message) {
+                const container = document.getElementById('movieDetailsContent');
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 4rem 2rem;">
+                        <h2 style="color: var(--text-primary); margin-bottom: 1rem;">⚠️ ${message}</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Unable to load movie details</p>
+                        <a href="index.html" class="btn-primary">Back to Home</a>
+                    </div>
+                `;
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => MovieDetailsPage.init());
+    </script>
+</body>
+
+</html>

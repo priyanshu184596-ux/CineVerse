@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CineVerse - Search Movies">
+    <meta name="theme-color" content="#0f0f0f">
+    <title>Search - CineVerse</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .search-hero {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            margin-top: 80px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .search-hero h1 {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all var(--transition-base);
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--purple);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .search-box button {
+            padding: 1rem 1.5rem;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            transition: all var(--transition-base);
+        }
+
+        .search-box button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .search-empty {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .search-empty svg {
+            width: 80px;
+            height: 80px;
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: var(--spacing-md);
+            padding: var(--spacing-lg);
+            flex-wrap: wrap;
+            align-items: center;
+            max-width: 1920px;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .filter-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .filter-select {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .filter-select:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--purple);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            align-items: center;
+        }
+
+        .pagination button {
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-primary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background: var(--gradient-primary);
+            border-color: transparent;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .pagination .page-info {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .search-hero {
+                padding: var(--spacing-xl) var(--spacing-md);
+                margin-top: 70px;
+            }
+
+            .search-results {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: var(--spacing-md);
+                padding: var(--spacing-lg) var(--spacing-md);
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===========================
+         NAVIGATION BAR
+         =========================== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-icon">🎬</span>
+                    <span class="logo-text">CineVerse</span>
+                </a>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="search.html" class="nav-link active">Search</a></li>
+                <li class="nav-item"><a href="profile.html" class="nav-link">My List</a></li>
+            </ul>
+
+            <div class="navbar-search">
+                <input type="text" class="search-input" id="navSearchInput" placeholder="Search movies..."
+                    aria-label="Search movies">
+                <button class="search-btn" id="navSearchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="navbar-auth">
+                <a href="login.html" class="btn-text">Login</a>
+                <a href="profile.html" class="btn-primary">Profile</a>
+            </div>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===========================
+         SEARCH HERO
+         =========================== -->
+    <div class="search-hero">
+        <h1>Search Movies & Shows</h1>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Enter movie title..." aria-label="Search for movies">
+            <button id="searchButton">Search</button>
+        </div>
+    </div>
+
+    <!-- ===========================
+         FILTERS
+         =========================== -->
+    <div class="filters" id="filtersContainer" style="display: none;">
+        <label class="filter-label">Filter by:</label>
+        <select class="filter-select" id="genreFilter" aria-label="Filter by genre">
+            <option value="">All Genres</option>
+            <option value="28">Action</option>
+            <option value="12">Adventure</option>
+            <option value="35">Comedy</option>
+            <option value="18">Drama</option>
+            <option value="14">Fantasy</option>
+            <option value="27">Horror</option>
+            <option value="10749">Romance</option>
+            <option value="878">Sci-Fi</option>
+            <option value="53">Thriller</option>
+        </select>
+
+        <select class="filter-select" id="sortFilter" aria-label="Sort results">
+            <option value="popularity.desc">Most Popular</option>
+            <option value="vote_average.desc">Highest Rated</option>
+            <option value="release_date.desc">Newest First</option>
+            <option value="title.asc">Alphabetical</option>
+        </select>
+    </div>
+
+    <!-- ===========================
+         SEARCH RESULTS
+         =========================== -->
+    <main>
+        <div id="searchResults" class="search-results">
+            <!-- Results will be inserted here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="searchEmpty" class="search-empty" style="display: none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <h2>No results found</h2>
+            <p>Try searching with different keywords</p>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="paginationContainer" style="display: none;">
+            <button id="prevPage" aria-label="Previous page">← Previous</button>
+            <span class="page-info">
+                Page <span id="currentPage">1</span> of <span id="totalPages">1</span>
+            </span>
+            <button id="nextPage" aria-label="Next page">Next →</button>
+        </div>
+    </main>
+
+    <!-- ===========================
+         FOOTER
+         =========================== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">CineVerse</h3>
+                <p class="footer-description">Your premium streaming experience with curated content.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Platform</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="profile.html">My List</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 CineVerse. All rights reserved. | Data provided by TMDB</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/favorites.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/sample-movies.js"></script>
+    <script>
+        /**
+         * Search Results Page
+         */
+        const SearchResultsPage = {
+            currentPage: 1,
+            totalPages: 1,
+            currentQuery: '',
+            currentGenre: '',
+            currentSort: 'popularity.desc',
+
+            async init() {
+                this.setupEventListeners();
+                this.setupScrollEffects();
+                this.setupMobileMenu();
+
+                // Check if there's a search query in URL
+                const params = new URLSearchParams(window.location.search);
+                const query = params.get('q');
+
+                if (query) {
+                    document.getElementById('searchInput').value = query;
+                    await this.search(query);
+                }
+            },
+
+            setupEventListeners() {
+                const searchBtn = document.getElementById('searchButton');
+                const searchInput = document.getElementById('searchInput');
+                const navSearchBtn = document.getElementById('navSearchBtn');
+                const navSearchInput = document.getElementById('navSearchInput');
+
+                searchBtn.addEventListener('click', () => this.handleSearch());
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.handleSearch();
+                });
+
+                navSearchBtn.addEventListener('click', () => {
+                    const query = navSearchInput.value.trim();
+                    if (query) {
+                        window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                    }
+                });
+
+                navSearchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        const query = e.target.value.trim();
+                        if (query) {
+                            window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                        }
+                    }
+                });
+
+                // Filters
+                const genreFilter = document.getElementById('genreFilter');
+                const sortFilter = document.getElementById('sortFilter');
+                const prevPage = document.getElementById('prevPage');
+                const nextPage = document.getElementById('nextPage');
+
+                if (genreFilter) genreFilter.addEventListener('change', (e) => {
+                    this.currentGenre = e.target.value;
+                    this.currentPage = 1;
+                    this.search(this.currentQuery);
+                });
+
+                if (sortFilter) sortFilter.addEventListener('change', (e) => {
+                    this.currentSort = e.target.value;
+                    this.currentPage = 1;
+                    this.search(this.currentQuery);
+                });
+
+                if (prevPage) prevPage.addEventListener('click', () => {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                        this.search(this.currentQuery);
+                    }
+                });
+
+                if (nextPage) nextPage.addEventListener('click', () => {
+                    if (this.currentPage < this.totalPages) {
+                        this.currentPage++;
+                        this.search(this.currentQuery);
+                    }
+                });
+
+                // Back to top
+                const backToTop = document.getElementById('backToTop');
+                if (backToTop) {
+                    backToTop.addEventListener('click', () => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                }
+            },
+
+            handleSearch() {
+                const query = document.getElementById('searchInput').value.trim();
+                if (query) {
+                    this.currentPage = 1;
+                    this.search(query);
+                }
+            },
+
+            async search(query) {
+                try {
+                    this.currentQuery = query;
+                    const loading = document.getElementById('loadingSpinner');
+                    loading.classList.add('active');
+
+                    const results = await API.search(query, this.currentPage);
+
+                    if (!results.results || results.results.length === 0) {
+                        this.showEmpty();
+                    } else {
+                        this.totalPages = results.total_pages;
+                        this.renderResults(results.results);
+                        this.updatePagination();
+                    }
+
+                    document.getElementById('filtersContainer').style.display = 'flex';
+                    loading.classList.remove('active');
+                } catch (error) {
+                    console.error('Search error:', error);
+                    this.showEmpty();
+                }
+            },
+
+            renderResults(movies) {
+                const container = document.getElementById('searchResults');
+                const empty = document.getElementById('searchEmpty');
+
+                container.innerHTML = '';
+                empty.style.display = 'none';
+
+                movies.forEach((movie, index) => {
+                    const card = this.createMovieCard(movie);
+                    card.style.animation = `slideUp 0.6s ease-out ${index * 0.05}s forwards`;
+                    card.style.opacity = '0';
+                    container.appendChild(card);
+                });
+            },
+
+            createMovieCard(movie) {
+                const title = movie.title || movie.name;
+                const posterUrl = movie.poster_path
+                    ? API.getImageUrl(movie.poster_path, 'w342')
+                    : 'assets/images/no-image.jpg';
+
+                const card = document.createElement('div');
+                card.className = 'movie-card';
+                card.style.cursor = 'pointer';
+
+                card.innerHTML = `
+                    <div class="card-poster">
+                        <img src="${posterUrl}" alt="${title}" loading="lazy">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <h3 class="card-title">${title}</h3>
+                                <div class="card-meta">
+                                    <div class="card-rating">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 10.26 23.77 10.35 17.16 15.54 19.85 23.95 12 18.77 4.15 23.95 6.84 15.54 0.23 10.35 8.91 10.26"/>
+                                        </svg>
+                                        <span>${movie.vote_average?.toFixed(1) || 'N/A'}</span>
+                                    </div>
+                                    <span class="card-year">${(movie.release_date || movie.first_air_date)?.split('-')[0] || 'N/A'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="card-play-btn" aria-label="View details">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="5 3 19 12 5 21"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+
+                card.addEventListener('click', () => {
+                    sessionStorage.setItem('selectedMovieId', movie.id);
+                    window.location.href = `movie.html?id=${movie.id}`;
+                });
+
+                return card;
+            },
+
+            showEmpty() {
+                const container = document.getElementById('searchResults');
+                const empty = document.getElementById('searchEmpty');
+
+                container.innerHTML = '';
+                empty.style.display = 'block';
+                document.getElementById('paginationContainer').style.display = 'none';
+            },
+
+            updatePagination() {
+                const container = document.getElementById('paginationContainer');
+                const currentPageSpan = document.getElementById('currentPage');
+                const totalPagesSpan = document.getElementById('totalPages');
+                const prevPage = document.getElementById('prevPage');
+                const nextPage = document.getElementById('nextPage');
+
+                container.style.display = 'flex';
+                currentPageSpan.textContent = this.currentPage;
+                totalPagesSpan.textContent = this.totalPages;
+
+                prevPage.disabled = this.currentPage <= 1;
+                nextPage.disabled = this.currentPage >= this.totalPages;
+            },
+
+            setupScrollEffects() {
+                window.addEventListener('scroll', () => {
+                    const navbar = document.getElementById('navbar');
+                    const backToTop = document.getElementById('backToTop');
+
+                    if (window.scrollY > 100) {
+                        navbar?.classList.add('scrolled');
+                        backToTop?.classList.add('active');
+                    } else {
+                        navbar?.classList.remove('scrolled');
+                        backToTop?.classList.remove('active');
+                    }
+                });
+            },
+
+            setupMobileMenu() {
+                const mobileToggle = document.getElementById('mobileToggle');
+                const navMenu = document.getElementById('navMenu');
+
+                if (mobileToggle && navMenu) {
+                    mobileToggle.addEventListener('click', () => {
+                        mobileToggle.classList.toggle('active');
+                        navMenu.classList.toggle('active');
+                    });
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => SearchResultsPage.init());
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CineVerse - Premium streaming platform with curated movies and shows">
+    <meta name="theme-color" content="#0f0f0f">
+    <title>CineVerse - Your Premium Streaming Experience</title>
+
+    <!-- Google Fonts: Inter & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <!-- ===========================
+         NAVIGATION BAR
+         =========================== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <!-- Logo -->
+            <div class="navbar-logo">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-icon">🎬</span>
+                    <span class="logo-text">CineVerse</span>
+                </a>
+            </div>
+
+            <!-- Navbar Menu -->
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                <li class="nav-item"><a href="#trending" class="nav-link" data-section="trending">Trending</a></li>
+                <li class="nav-item"><a href="#top-rated" class="nav-link" data-section="top-rated">Top Rated</a></li>
+                <li class="nav-item"><a href="#popular" class="nav-link" data-section="popular">Popular</a></li>
+            </ul>
+
+            <!-- Search Bar -->
+            <div class="navbar-search">
+                <input type="text" class="search-input" id="navSearchInput" placeholder="Search movies, shows..."
+                    aria-label="Search movies and shows">
+                <button class="search-btn" id="navSearchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Auth Buttons -->
+            <div class="navbar-auth">
+                <a href="login.html" class="btn-text">Login</a>
+                <a href="profile.html" class="btn-primary">Profile</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===========================
+         HERO SECTION
+         =========================== -->
+    <section class="hero" id="home">
+        <!-- Hero Background -->
+        <div class="hero-background" id="heroBg">
+            <img src="assets/images/hero-bg.jpg" alt="Featured movie backdrop" class="hero-image">
+            <div class="hero-overlay"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <div class="hero-inner">
+                <!-- Featured Movie Title -->
+                <h1 class="hero-title" id="heroTitle">
+                    The Last Stand
+                </h1>
+
+                <!-- Movie Info -->
+                <div class="hero-info">
+                    <span class="rating" id="heroRating">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD700">
+                            <polygon
+                                points="12 2 15.09 10.26 23.77 10.35 17.16 15.54 19.85 23.95 12 18.77 4.15 23.95 6.84 15.54 0.23 10.35 8.91 10.26" />
+                        </svg>
+                        <span>8.5/10</span>
+                    </span>
+                    <span class="duration" id="heroDuration">128 min</span>
+                    <span class="year" id="heroYear">2024</span>
+                </div>
+
+                <!-- Genres -->
+                <div class="genres" id="heroGenres">
+                    <span class="genre-tag">Action</span>
+                    <span class="genre-tag">Thriller</span>
+                    <span class="genre-tag">Adventure</span>
+                </div>
+
+                <!-- Description -->
+                <p class="hero-description" id="heroDescription">
+                    In a world on the brink of collapse, a team of elite operatives must execute an impossible mission
+                    to save humanity. Packed with breathtaking action sequences and emotional depth.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="hero-buttons">
+                    <button class="btn-play" id="playBtn" aria-label="Play movie">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        <span>Play Now</span>
+                    </button>
+                    <button class="btn-trailer" id="trailerBtn" aria-label="Watch trailer">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                        </svg>
+                        <span>Watch Trailer</span>
+                    </button>
+                    <button class="btn-favorite" id="favoriteBtn" aria-label="Add to favorites">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon
+                                points="12 2 15.09 10.26 23.77 10.35 17.16 15.54 19.85 23.95 12 18.77 4.15 23.95 6.84 15.54 0.23 10.35 8.91 10.26" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator" aria-hidden="true">
+                <span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================
+         CONTINUE WATCHING SECTION
+         =========================== -->
+    <section class="section-container" id="continueWatching">
+        <div class="section-header">
+            <h2 class="section-title">Continue Watching</h2>
+            <a href="#" class="view-all-link">View All</a>
+        </div>
+        <div class="slider" id="continueWatchingSlider">
+            <div class="slider-track" id="continueWatchingTrack">
+                <!-- Movie cards will be inserted here via JavaScript -->
+            </div>
+        </div>
+        <div class="slider-nav">
+            <button class="slider-btn prev" id="continueWatchingPrev" aria-label="Previous">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="slider-btn next" id="continueWatchingNext" aria-label="Next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ===========================
+         TRENDING SECTION
+         =========================== -->
+    <section class="section-container" id="trending">
+        <div class="section-header">
+            <h2 class="section-title">Trending Now</h2>
+            <a href="search.html" class="view-all-link">View All</a>
+        </div>
+        <div class="slider" id="trendingSlider">
+            <div class="slider-track" id="trendingTrack">
+                <!-- Movie cards will be inserted here via JavaScript -->
+            </div>
+        </div>
+        <div class="slider-nav">
+            <button class="slider-btn prev" id="trendingPrev" aria-label="Previous">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="slider-btn next" id="trendingNext" aria-label="Next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ===========================
+         TOP RATED SECTION
+         =========================== -->
+    <section class="section-container" id="top-rated">
+        <div class="section-header">
+            <h2 class="section-title">Top Rated</h2>
+            <a href="search.html" class="view-all-link">View All</a>
+        </div>
+        <div class="slider" id="topRatedSlider">
+            <div class="slider-track" id="topRatedTrack">
+                <!-- Movie cards will be inserted here via JavaScript -->
+            </div>
+        </div>
+        <div class="slider-nav">
+            <button class="slider-btn prev" id="topRatedPrev" aria-label="Previous">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="slider-btn next" id="topRatedNext" aria-label="Next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ===========================
+         POPULAR SECTION
+         =========================== -->
+    <section class="section-container" id="popular">
+        <div class="section-header">
+            <h2 class="section-title">Popular</h2>
+            <a href="search.html" class="view-all-link">View All</a>
+        </div>
+        <div class="slider" id="popularSlider">
+            <div class="slider-track" id="popularTrack">
+                <!-- Movie cards will be inserted here via JavaScript -->
+            </div>
+        </div>
+        <div class="slider-nav">
+            <button class="slider-btn prev" id="popularPrev" aria-label="Previous">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="slider-btn next" id="popularNext" aria-label="Next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ===========================
+         ACTION MOVIES SECTION
+         =========================== -->
+    <section class="section-container genre-section" id="actionSection">
+        <div class="section-header">
+            <h2 class="section-title">Action & Adventure</h2>
+            <a href="search.html" class="view-all-link">View All</a>
+        </div>
+        <div class="slider" id="actionSlider">
+            <div class="slider-track" id="actionTrack">
+                <!-- Movie cards will be inserted here via JavaScript -->
+            </div>
+        </div>
+        <div class="slider-nav">
+            <button class="slider-btn prev" id="actionPrev" aria-label="Previous">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="slider-btn next" id="actionNext" aria-label="Next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ===========================
+         COMEDY SECTION
+         =========================== -->
+    <section class="section-container genre-section" id="comedySection">
+        <div class="section-header">
+            <h2 class="section-title">Comedy</h2>
+            <a href="search.html" class="view-all-link">View All</a>
+        </div>
+        <div class="slider" id="comedySlider">
+            <div class="slider-track" id="comedyTrack">
+                <!-- Movie cards will be inserted here via JavaScript -->
+            </div>
+        </div>
+        <div class="slider-nav">
+            <button class="slider-btn prev" id="comedyPrev" aria-label="Previous">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="slider-btn next" id="comedyNext" aria-label="Next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ===========================
+         SCI-FI SECTION
+         =========================== -->
+    <section class="section-container genre-section" id="scifiSection">
+        <div class="section-header">
+            <h2 class="section-title">Science Fiction</h2>
+            <a href="search.html" class="view-all-link">View All</a>
+        </div>
+        <div class="slider" id="scifiSlider">
+            <div class="slider-track" id="scifiTrack">
+                <!-- Movie cards will be inserted here via JavaScript -->
+            </div>
+        </div>
+        <div class="slider-nav">
+            <button class="slider-btn prev" id="scifiPrev" aria-label="Previous">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="slider-btn next" id="scifiNext" aria-label="Next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ===========================
+         HORROR SECTION
+         =========================== -->
+    <section class="section-container genre-section" id="horrorSection">
+        <div class="section-header">
+            <h2 class="section-title">Horror & Thriller</h2>
+            <a href="search.html" class="view-all-link">View All</a>
+        </div>
+        <div class="slider" id="horrorSlider">
+            <div class="slider-track" id="horrorTrack">
+                <!-- Movie cards will be inserted here via JavaScript -->
+            </div>
+        </div>
+        <div class="slider-nav">
+            <button class="slider-btn prev" id="horrorPrev" aria-label="Previous">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="slider-btn next" id="horrorNext" aria-label="Next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ===========================
+         FOOTER
+         =========================== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">CineVerse</h3>
+                <p class="footer-description">Your premium streaming experience with curated content.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Platform</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="profile.html">My List</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 CineVerse. All rights reserved. | Data provided by TMDB</p>
+        </div>
+    </footer>
+
+    <!-- ===========================
+         MOVIE MODAL
+         =========================== -->
+    <div class="modal" id="movieModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content" id="modalContent">
+            <button class="modal-close" id="modalClose" aria-label="Close modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <!-- Movie details will be inserted here via JavaScript -->
+        </div>
+    </div>
+
+    <!-- ===========================
+         BACK TO TOP BUTTON
+         =========================== -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <!-- ===========================
+         LOADING SPINNER
+         =========================== -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ===========================
+         JAVASCRIPT FILES
+         =========================== -->
+    <script src="js/storage.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/favorites.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/sample-movies.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

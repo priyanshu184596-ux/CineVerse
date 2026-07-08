@@ -373,6 +373,6 @@ For issues, questions, or suggestions, please open an issue or contact the devel
 
 **Made with ❤️ by a Senior Frontend Engineer**
 
-**Last Updated**: 2024
+**Last Updated**: 2026
 
 **Status**: Production Ready ✅
